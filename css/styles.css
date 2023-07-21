@@ -1,0 +1,79 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+    font-family: 'Oswald', sans-serif;
+}
+
+
+h1{
+    margin: 1.5rem;
+}
+
+main input {
+    margin-left: 2rem;
+    
+}
+
+footer{
+    text-align: center;
+    padding: 15px;
+    margin: 15px;
+}
+
+#padre{
+    display: flex;
+    margin: 1rem;
+    padding: 2rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.tarjetaProducto {
+    border: black 2px solid; 
+    margin: 1.5rem;
+    padding: 1.5rem;
+    width: 350px;
+    height: 350px;
+    justify-content: center;
+    align-items: center;
+}
+
+.tarjetaProducto img {
+    margin-left: 40px;
+    height: 30vh;
+    width: 15vw;
+}
+
+
+#carrito {
+    border: black 1px solid;
+}
+
+#carrito a{
+    margin: 15px;
+}
+
+#contenedorCarrito p{
+    display: flex;
+}
+
+.elementoCarrito{
+    display: flex;
+}
+
+.elementoCarrito p{
+    display: grid;
+    grid-template-columns: 4fr;
+    grid-template-rows: 4fr;
+    padding: 15px;
+    margin: 15px;
+}
+
+.oculto{
+    display: none;
+}
+
+
+
