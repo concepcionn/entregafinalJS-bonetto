@@ -1,39 +1,39 @@
 function programaPrincipal() {
-    let productos = [];
-    const urlLocal = "./productos.json";
+    let productos = []
+    const urlLocal = "./productos.json"
 
     fetch(urlLocal)
     .then(response => response.json())
     .then(data => {
-        productos = data.productos;
-        console.log(productos);
+        productos = data.productos
+        console.log(productos)
 
         // Creación de carrito
-        let carrito = [];
-        let carritoJSON = JSON.parse(localStorage.getItem("carrito"));
+        let carrito = []
+        let carritoJSON = JSON.parse(localStorage.getItem("carrito"))
 
         if (carritoJSON) {
-            carrito = carritoJSON;
+            carrito = carritoJSON
         }
 
         // Filtro de búsqueda por nombre
-        let buscador = document.getElementById("buscador");
-        buscador.addEventListener("input", () => filtrar(productos, carrito));
+        let buscador = document.getElementById("buscador")
+        buscador.addEventListener("input", () => filtrar(productos, carrito))
 
-        let contenedorFiltros = document.getElementById("filtros");
+        let contenedorFiltros = document.getElementById("filtros")
 
         // Botones de filtro por categoría
-        crearFiltros(productos, contenedorFiltros, carrito);
+        crearFiltros(productos, contenedorFiltros, carrito)
 
-        crearTarjeta(productos, carrito);
+        crearTarjeta(productos, carrito)
 
-        let botonCarrito = document.getElementById("botonCarrito");
-        botonCarrito.addEventListener("click", mostrarOcultar);
+        let botonCarrito = document.getElementById("botonCarrito")
+        botonCarrito.addEventListener("click", mostrarOcultar)
 
-        crearCarrito(carrito);
+        crearCarrito(carrito)
 
-        let finalizar = document.getElementById("finalizar");
-        finalizar.addEventListener("click", () => finalizarCompra(carrito));
+        let finalizar = document.getElementById("finalizar")
+        finalizar.addEventListener("click", () => finalizarCompra(carrito))
     });
 }
    
@@ -168,11 +168,12 @@ function crearCarrito (carrito) {
 }
 
 // finalizar compra
-function finalizarCompra (carrito) {
+function finalizarCompra() {
     let carritoReal = document.getElementById("carrito")
     carritoReal.innerHTML = ""
-    localStorage.removeItem(carrito)
+    localStorage.removeItem("carrito")
     carrito = []
+    lanzarAlerta()
 }
 
 function lanzarTostada () {
@@ -185,4 +186,6 @@ function lanzarTostada () {
       }).showToast();
 }
 
-
+function lanzarAlerta () {
+    Swal.fire('¡Muchas gracias por su compra!')
+}
