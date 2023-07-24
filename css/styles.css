@@ -53,27 +53,26 @@ footer{
 
 #carrito a{
     margin: 15px;
+    justify-content: space-between;
 }
 
-#contenedorCarrito p{
-    display: flex;
-}
 
 .elementoCarrito{
     display: flex;
 }
 
 .elementoCarrito p{
-    display: grid;
-    grid-template-columns: 4fr;
-    grid-template-rows: 4fr;
+    justify-content: space-between;   
     padding: 15px;
     margin: 15px;
+    
 }
 
 .oculto{
     display: none;
 }
 
-
-
+#totalCarrito {
+    display: flex;
+    font: bold;
+}

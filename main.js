@@ -1,44 +1,40 @@
 function programaPrincipal() {
-     //array de productos
-    let productos = [
-   {id: 1, nombre: "Hongos de pino", categoria: "natural", rutaImagen: "./img/hongos-pino.jpg", stock: 4, precio: 2200 },
-   {id: 4, nombre: "Aceitunas", categoria: "gourmet", rutaImagen: "./img/aceitunas.jpg", stock: 10, precio: 2000 },
-   {id: 7, nombre: "Pasta de mani", categoria: "gourmet", rutaImagen: "./img/pasta-mani.jpg", stock: 15, precio: 800},
-   {id: 9, nombre: "Champignones", categoria: "natural", rutaImagen: "./img/hongos-champi.jpg", stock: 6, precio: 1800 },
-   {id: 11, nombre: "Frutos secos", categoria: "natural", rutaImagen: "./img/frutos-secos.jpg", stock: 8, precio: 3500 },
-   {id: 15, nombre: "Fideos secos", categoria: "gourmet", rutaImagen: "./img/fideos.jpg", stock: 20, precio: 950 },
-   {id: 18, nombre: "Escabeche", categoria: "gourmet", rutaImagen: "./img/escabeche.jpg",  stock: 9, precio: 1450 },
-   {id: 24, nombre: "Aceite de oliva extra virgen", categoria: "gourmet", rutaImagen: "./img/oliva.jpg",  stock: 10, precio: 2500 },
-   {id: 29, nombre: "Chocolate", categoria: "gourmet", rutaImagen: "./img/chocolate.jpg", stock: 14, precio: 900},
-]
+    let productos = [];
+    const urlLocal = "./productos.json";
 
-    //creacion de carrito
-    let carrito = []
-    let carritoJSON = JSON.parse(localStorage.getItem("carrito"))
+    fetch(urlLocal)
+    .then(response => response.json())
+    .then(data => {
+        productos = data.productos;
+        console.log(productos);
 
-    if (carritoJSON) {
-    carrito = carritoJSON
-    }
+        // Creación de carrito
+        let carrito = [];
+        let carritoJSON = JSON.parse(localStorage.getItem("carrito"));
 
-    //filtro de busqueda
-    //por nombre
-    let buscador = document.getElementById("buscador")
-    buscador.addEventListener("input", () => filtrar(productos, carrito))
+        if (carritoJSON) {
+            carrito = carritoJSON;
+        }
 
-    let contenedorFiltros = document.getElementById("filtros")
+        // Filtro de búsqueda por nombre
+        let buscador = document.getElementById("buscador");
+        buscador.addEventListener("input", () => filtrar(productos, carrito));
 
-    //carrito
-    let botonCarrito = document.getElementById("botonCarrito")
-    botonCarrito.addEventListener("click", mostrarOcultar)
+        let contenedorFiltros = document.getElementById("filtros");
 
-    crearFiltros(productos, contenedorFiltros, carrito)
+        // Botones de filtro por categoría
+        crearFiltros(productos, contenedorFiltros, carrito);
 
-    crearTarjeta (productos, carrito)
+        crearTarjeta(productos, carrito);
 
-    crearCarrito (carrito)
+        let botonCarrito = document.getElementById("botonCarrito");
+        botonCarrito.addEventListener("click", mostrarOcultar);
 
-    let finalizar = document.getElementById("finalizar")
-    finalizar.addEventListener("click", () => finalizarCompra(carrito))
+        crearCarrito(carrito);
+
+        let finalizar = document.getElementById("finalizar");
+        finalizar.addEventListener("click", () => finalizarCompra(carrito));
+    });
 }
    
 programaPrincipal()
@@ -116,8 +112,10 @@ function mostrarOcultar() {
 // agregar al carrito
 function agregarAlCarrito(productos, id, carrito) {
     console.log(id);
+    
+    
     let productoBuscado = productos.find(prod => prod.id === id)
-    let posicionProdEnCarrito = carrito.findIndex(prod => prod.id === id)
+    let posicionProdEnCarrito = carrito?.findIndex(prod => prod.id === id)
 
     if (posicionProdEnCarrito !== -1) {
         carrito[posicionProdEnCarrito].unidades++
@@ -131,6 +129,16 @@ function agregarAlCarrito(productos, id, carrito) {
             subtotal: productoBuscado.precio,
         });
     }
+    
+    let totalCarrito = 0;
+    
+    carrito.forEach(item => {
+        totalCarrito += item.subtotal;
+    });
+
+    console.log(totalCarrito);
+    document.getElementById("totalCarrito").textContent = `Total $${totalCarrito.toFixed(2)}`;
+    
 
     lanzarTostada()
     localStorage.setItem("carrito", JSON.stringify(carrito));
@@ -163,7 +171,8 @@ function crearCarrito (carrito) {
 function finalizarCompra (carrito) {
     let carritoReal = document.getElementById("carrito")
     carritoReal.innerHTML = ""
-    localStorage.clear()
+    localStorage.removeItem(carrito)
+    carrito = []
 }
 
 function lanzarTostada () {
