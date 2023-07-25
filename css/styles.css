@@ -1,3 +1,4 @@
+/*reset*/
 *{
     margin: 0;
     padding: 0;
@@ -5,13 +6,14 @@
     font-family: 'Oswald', sans-serif;
 }
 
-
+/*Estilos generales*/
 h1{
     margin: 1.5rem;
 }
 
 #contenedorInput{
     display: flex;
+    flex-wrap: wrap;
 }
 
 #contenedorInput input {
@@ -29,6 +31,7 @@ footer{
     margin: 15px;
 }
 
+/*Estilo de tarjetas*/
 #padre{
     display: flex;
     margin: 1rem;
@@ -54,34 +57,47 @@ footer{
     width: 15vw;
 }
 
-
-#carrito {
+/*Carrito*/
+#contenedorCarrito {
     border: black 1px solid;
 }
 
-#carrito a{
-    margin: 15px;
-    justify-content: space-between;
-}
-
-
-.elementoCarrito{
-    display: flex;
-}
-
-.elementoCarrito p{
-    justify-content: space-between;   
-    padding: 15px;
-    margin: 15px;
-    
+/* Estilo para la tabla del carrito */
+.tablaCarrito {
+    display: grid;
+    grid-template-columns: 1fr 3fr 2fr 2fr; 
+    grid-gap: 8px; 
+    background-color: #f9f9f9;
+    padding: 8px;
 }
 
 .oculto{
     display: none;
 }
 
-#totalCarrito {
+/* Estilo para las columnas */
+.columna {
+    font-weight: bold;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+/* Estilo para los elementos del carrito */
+.elementoCarrito div {
+    display: grid;
+    grid-template-columns: 1fr 3fr 2fr 2fr; 
+    grid-gap: 8px; 
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+/*Estilo para total del carrito*/ 
+#finalizarCompra{
     display: flex;
+    justify-content: space-between;
     font: bold;
 }
 

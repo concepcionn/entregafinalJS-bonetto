@@ -6,16 +6,18 @@
         carrito = carritoJSON
     }
 
+//mi funcion principal
 function programaPrincipal() {
-let productos = []
-const urlLocal = "./productos.json"
+    let productos = []
 
-fetch(urlLocal)
-.then(response => response.json())
-.then(data => {
+    /*Json local y fetch*/
+    const urlLocal = "./productos.json"
+
+    fetch(urlLocal)
+    .then(response => response.json())
+    .then(data => {
     productos = data.productos
     console.log(productos)
-
 
 
     // Filtro de búsqueda por nombre
@@ -41,8 +43,8 @@ fetch(urlLocal)
 
 programaPrincipal()
 
-function crearTarjeta(array) {
 // creacion de tarjetas de productos
+function crearTarjeta(array) {
 let contenedor = document.getElementById("padre")
 contenedor.innerHTML = ""
 
@@ -70,6 +72,7 @@ array.forEach(element => {
 })
 }
 
+//filtros 
 function filtrar (productos) {
 let contenedor = document.getElementById("padre")
 let arrayFiltrado = productos.filter(producto => producto.nombre.toLowerCase().includes(buscador.value.toLowerCase()))
@@ -98,6 +101,7 @@ filtros.forEach(filtro => {
 })
 }
 
+//funcion de filtrar
 function filtrarPorCategoria (event, id, productos) {
 if (id === "principal") {
     crearTarjeta(productos)
@@ -107,67 +111,62 @@ if (id === "principal") {
 }   
 } 
 
+//carrito
 function mostrarOcultar() {
-let padreProd = document.getElementById("padreProd")
-let carrito = document.getElementById("contenedorCarrito")
-padreProd.classList.toggle("oculto")
-carrito.classList.toggle("oculto")
+    let padreProd = document.getElementById("padreProd")
+    let carrito = document.getElementById("contenedorCarrito")
+    padreProd.classList.toggle("oculto")
+    carrito.classList.toggle("oculto")
 }
 
-// agregar al carrito
+//agregar al carrito
 function agregarAlCarrito(productos, id) {
-console.log(id);
 
+    let productoBuscado = productos.find(prod => prod.id === id)
+    let posicionProdEnCarrito = carrito?.findIndex(prod => prod.id === id)
 
-let productoBuscado = productos.find(prod => prod.id === id)
-let posicionProdEnCarrito = carrito?.findIndex(prod => prod.id === id)
+    if (posicionProdEnCarrito !== -1) {
+        carrito[posicionProdEnCarrito].unidades++
+        carrito[posicionProdEnCarrito].subtotal = carrito[posicionProdEnCarrito].unidades * carrito[posicionProdEnCarrito].precioUnitario
+    } else {
+        carrito.push({
+            id: productoBuscado.id,
+            nombre: productoBuscado.nombre,
+            precioUnitario: productoBuscado.precio,
+            unidades: 1,    
+            subtotal: productoBuscado.precio,
+        });
+    }
 
-if (posicionProdEnCarrito !== -1) {
-    carrito[posicionProdEnCarrito].unidades++
-    carrito[posicionProdEnCarrito].subtotal = carrito[posicionProdEnCarrito].unidades * carrito[posicionProdEnCarrito].precioUnitario
-} else {
-    carrito.push({
-        id: productoBuscado.id,
-        nombre: productoBuscado.nombre,
-        precioUnitario: productoBuscado.precio,
-        unidades: 1,    
-        subtotal: productoBuscado.precio,
+    let totalCarrito = 0;
+
+    carrito.forEach(item => {
+        totalCarrito += item.subtotal;
     });
+    document.getElementById("totalCarrito").textContent = `Total $${totalCarrito.toFixed(2)}`;
+
+    //Toastify
+    lanzarTostada()
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    crearCarrito(carrito);
 }
 
-let totalCarrito = 0;
-
-carrito.forEach(item => {
-    totalCarrito += item.subtotal;
-});
-document.getElementById("totalCarrito").textContent = `Total $${totalCarrito.toFixed(2)}`;
-
-
-lanzarTostada()
-localStorage.setItem("carrito", JSON.stringify(carrito));
-crearCarrito(carrito);
-}
-
+//creacion del carrito
 function crearCarrito (carrito) {
-let carritoReal = document.getElementById("carrito")
-carritoReal.innerHTML = `
-    <a>Unidades</a>
-    <a>Nombre</a>
-    <a>Precio</a>
-    <a>Subtotal</a> 
-`
-
-carrito.forEach(prod => {
-    let elementoCarrito = document.createElement("div")
-    elementoCarrito.classList.add("elementoCarrito")
-    elementoCarrito.innerHTML = `
-        <p>${prod.unidades}<p> 
-        <p>${prod.nombre}</p> 
-        <p>${prod.precioUnitario}</p> 
-        <p>${prod.subtotal}</p>
-    `
-    carritoReal.append(elementoCarrito)
-})      
+    let carritoReal = document.getElementById("carrito")
+    carritoReal.innerHTML = ""
+        
+    carrito.forEach(prod => {
+        let elementoCarrito = document.createElement("div")
+        elementoCarrito.classList.add("elementoCarrito")
+        elementoCarrito.innerHTML = `
+            <div>${prod.unidades}<div> 
+            <div>${prod.nombre}</div> 
+            <div>${prod.precioUnitario}</div> 
+            <div>$${prod.subtotal}</div>
+        `
+        carritoReal.append(elementoCarrito)
+    })      
 }
 
 // finalizar compra
@@ -179,12 +178,13 @@ carrito = []
 lanzarAlerta()
 }
 
+//librerias
 function lanzarTostada () {
 Toastify({
     text: "Producto añadido correctamente",
     duration: 2000,
     style: {
-      background: "linear-gradient(to right, #00b09b, #96c93d)",
+      background: "linear-gradient(to right, rgb(184, 158, 206), #B4CFB0)",
     }
   }).showToast();
 }
