@@ -27,10 +27,11 @@
 
     <main>
         <!--buscador y botones de filtro y carrito-->
-        <input type="text" placeholder="Ingrese producto" id="buscador">
-        <div id="filtros"></div>
-        <button id="botonCarrito">Carrito</button>   
-        
+        <div id="contenedorInput">
+            <input type="text" placeholder="Ingrese producto" id="buscador">
+            <div id="filtros"></div>
+            <button id="botonCarrito" type="button" class="btn btn-secondary">Carrito</button>
+        </div>
         <!--tarjetas de productos-->
         <div id="padreProd">
             <div id="padre"></div>
@@ -39,10 +40,10 @@
         <div id="contenedorCarrito" class="oculto">
             <div id="carrito"></div>
             
-            <button id="finalizar">Finalizar compra</button>
+            
+            <button id="finalizar" type="button" class="btn btn-secondary btn-sm">Finalizar compra</button>
             <p id="totalCarrito">Total $0</p>
-        </div>
-        
+        </div> 
     </main>
 
     <footer>

@@ -86,6 +86,9 @@ function crearFiltros (arrayDeElementos, contenedorFiltros, carrito) {
         let boton = document.createElement("button")
         boton.id = filtro
         boton.innerText = filtro
+        boton.classList.add("btn", "btn-secondary")
+        boton.style.margin = "0.5rem"; 
+        
         contenedorFiltros.append(boton)
    
         let botonesFiltro = document.getElementById(filtro)

@@ -10,9 +10,17 @@ h1{
     margin: 1.5rem;
 }
 
-main input {
-    margin-left: 2rem;
-    
+#contenedorInput{
+    display: flex;
+}
+
+#contenedorInput input {
+    margin: 1rem;
+    width: 30rem;
+}
+
+#botonCarrito{
+    margin: 0.5rem;
 }
 
 footer{
@@ -76,3 +84,4 @@ footer{
     display: flex;
     font: bold;
 }
+
