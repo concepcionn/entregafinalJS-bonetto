@@ -84,14 +84,13 @@ footer{
 }
 
 /* Estilo para los elementos del carrito */
-.elementoCarrito div {
+.productoCarrito div {
     display: grid;
     grid-template-columns: 1fr 3fr 2fr 2fr; 
     grid-gap: 8px; 
     padding: 8px;
     justify-content: center;
     align-items: center;
-    
 }
 
 /*Estilo para total del carrito*/ 
