@@ -114,7 +114,7 @@ if (id === "principal") {
 //carrito
 function mostrarOcultar() {
     let padreProd = document.getElementById("padreProd")
-    let carrito = document.getElementById("contenedorCarrito")
+    let carrito = document.getElementById("padreCarrito")
     padreProd.classList.toggle("oculto")
     carrito.classList.toggle("oculto")
 }
