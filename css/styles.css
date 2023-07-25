@@ -84,7 +84,7 @@ footer{
 }
 
 /* Estilo para los elementos del carrito */
-.productoCarrito div {
+.elementoCarrito div {
     display: grid;
     grid-template-columns: 1fr 3fr 2fr 2fr; 
     grid-gap: 8px; 
@@ -100,3 +100,11 @@ footer{
     font: bold;
 }
 
+.productoCarrito{
+    display: grid;
+    grid-template-columns: 1fr 3fr 2fr 2fr; 
+    grid-gap: 8px; 
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+}
