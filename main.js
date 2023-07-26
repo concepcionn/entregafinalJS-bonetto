@@ -159,7 +159,6 @@ function crearCarrito (carrito) {
     carrito.forEach(prod => {
         let elementoCarrito = document.createElement("div")
         elementoCarrito.classList.add("elementoCarrito")
-        elementoCarrito.setAttribute("class", "productoCarrito")
         elementoCarrito.innerHTML = `
             <div>${prod.unidades}<div> 
             <div>${prod.nombre}</div> 
